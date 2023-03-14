@@ -41,6 +41,8 @@ document
     const perPlayerBudget = getInputValue("per_player_budget");
     let totalPlayerExpense = perPlayerBudget * 5;
     getValueOfElement("player_expense", totalPlayerExpense);
+    //   erase input filed value
+    eraseInputFiledValueByID("per_player_budget");
   });
 document
   .getElementById("calculate_total_budget")
@@ -52,4 +54,11 @@ document
 
     let totalExpense = playerTotalBudget + managerBudget + coachBudget;
     getValueOfElement("player_total_expense", totalExpense);
+    //   erase input filed Value
+    eraseInputFiledValueByID("coach_budget");
+    eraseInputFiledValueByID("manager_budget");
   });
+// erase input filed value by id
+function eraseInputFiledValueByID(id) {
+  document.getElementById(id).value = "";
+}

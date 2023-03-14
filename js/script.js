@@ -3,10 +3,14 @@ const buttons = document.querySelectorAll("#card_btn .btn");
 const selectedPlayer = document.getElementById("selected");
 
 // Button click and selected player update
+let countTextFiled = document.getElementById("selected-player-count");
 function addPlayer(playerName) {
   const li = document.createElement("li");
   li.innerText = playerName;
   selectedPlayer.appendChild(li);
+  let countValue = +countTextFiled.innerText;
+  countValue++;
+  countTextFiled.innerText = countValue;
 }
 
 for (const button of buttons) {
@@ -16,8 +20,9 @@ for (const button of buttons) {
       addPlayer(button.parentNode.children[0].innerText);
     } else {
       button.classList.remove("disabled");
-      addPlayer(button.parentNode.children[0].innerText);
+      //   addPlayer(button.parentNode.children[0].innerText);
       alert("5 Played already Selected");
+      return;
     }
   });
 }

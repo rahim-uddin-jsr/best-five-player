@@ -31,7 +31,11 @@ for (const button of buttons) {
 function getInputValue(inputId) {
   const inputField = document.getElementById(inputId);
   const inputFieldValue = +inputField.value;
-  return inputFieldValue;
+  if (!isNaN(inputFieldValue)) {
+    return inputFieldValue;
+  } else {
+    return false;
+  }
 }
 
 function getValueOfElement(elementId, value) {
@@ -44,24 +48,40 @@ document
   .getElementById("calculate_budget")
   .addEventListener("click", function () {
     const perPlayerBudget = getInputValue("per_player_budget");
-    let totalPlayerExpense = perPlayerBudget * 5;
-    getValueOfElement("player_expense", totalPlayerExpense);
-    //   erase input filed value
-    eraseInputFiledValueByID("per_player_budget");
+    if (perPlayerBudget === false) {
+      alert("Please Enter Budget Per Player Only in Number");
+      return;
+    }
+    if (getInputValue("per_player_budget") > 0) {
+      let totalPlayerExpense = perPlayerBudget * 5;
+      getValueOfElement("player_expense", totalPlayerExpense);
+      //erase input filed value
+      eraseInputFiledValueByID("per_player_budget");
+    } else {
+      alert("Please Enter Budget Per Player");
+    }
   });
 document
   .getElementById("calculate_total_budget")
   .addEventListener("click", function () {
-    const perPlayerBudget = document.getElementById("player_expense");
-    const playerTotalBudget = parseFloat(perPlayerBudget.innerText);
     const managerBudget = getInputValue("manager_budget");
     const coachBudget = getInputValue("coach_budget");
+    if (managerBudget || coachBudget === false) {
+      alert("Please add Manager Budget and also Coach Budget in number");
+      return;
+    }
+    if (managerBudget > 0 || coachBudget > 0) {
+      const perPlayerBudget = document.getElementById("player_expense");
+      const playerTotalBudget = parseFloat(perPlayerBudget.innerText);
 
-    let totalExpense = playerTotalBudget + managerBudget + coachBudget;
-    getValueOfElement("player_total_expense", totalExpense);
-    //   erase input filed Value
-    eraseInputFiledValueByID("coach_budget");
-    eraseInputFiledValueByID("manager_budget");
+      let totalExpense = playerTotalBudget + managerBudget + coachBudget;
+      getValueOfElement("player_total_expense", totalExpense);
+      //   erase input filed Value
+      eraseInputFiledValueByID("coach_budget");
+      eraseInputFiledValueByID("manager_budget");
+    } else {
+      alert("Please add Manager Budget and also Coach Budget.");
+    }
   });
 // erase input filed value by id
 function eraseInputFiledValueByID(id) {

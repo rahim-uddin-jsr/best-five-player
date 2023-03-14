@@ -25,7 +25,7 @@ for (const button of buttons) {
 // A common function for getInput value
 function getInputValue(inputId) {
   const inputField = document.getElementById(inputId);
-  const inputFieldValue = inputField.value;
+  const inputFieldValue = +inputField.value;
   return inputFieldValue;
 }
 
